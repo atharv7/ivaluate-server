@@ -1,0 +1,23 @@
+{
+  "name": "iValuateServer",
+  "version": "1.0.0",
+  "description": "Evaluation Tool for Codaisseur",
+  "main": "target/index.js",
+  "scripts": {
+      "start": "node ."
+  },
+  "author": "Atharv7",
+  "license": "MIT",
+  "dependencies": {
+    "@types/koa": "^2.0.45",
+    "@types/koa-bodyparser": "^4.2.0",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa-router": "^7.0.28",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-multer": "^1.0.2",
+    "koa-router": "^7.4.0",
+    "routing-controllers": "^0.7.7",
+    "target": "^0.0.2"
+  }
+}
