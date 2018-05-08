@@ -1,7 +1,7 @@
 import { IsString } from 'class-validator'
 import { JsonController, Post, Body, BadRequestError } from 'routing-controllers'
 import User from '../users/entity'
-
+import {sign} from '../jwt'
 class AuthenticatePayload {
   @IsString()
   email: string
@@ -21,8 +21,8 @@ export default class LoginController {
     if (!user) throw new BadRequestError('A user with this email does not exist')
 
     if (!await user.checkPassword(password)) throw new BadRequestError('The password is not correct')
-
+    const jwt = sign({ id: user.id! })
+    return { jwt }
     
-    return { user }
   }
 }

@@ -1,5 +1,6 @@
 import { JsonController, Post, Param, Get, Body, Authorized } from 'routing-controllers'
 import User from './entity';
+import {sign} from '../jwt'
 
 @JsonController()
 export default class UserController {
@@ -14,7 +15,8 @@ export default class UserController {
 
     const user = await entity.save()
 
-    return user
+    const jwt = sign({ id: user.id! })
+    return { jwt }
   }
 
 }
