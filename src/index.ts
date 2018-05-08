@@ -4,6 +4,7 @@ import setupDb from './db'
 import * as Koa from 'koa'
 import {Server} from 'http'
 import UserController from './users/controller';
+import LoginController from './logins/controller';
 
 
 const app = new Koa()
@@ -13,7 +14,8 @@ const port = process.env.PORT || 4000
 useKoaServer(app, {
   cors: true,
   controllers: [
-      UserController
+      UserController,
+      LoginController
   ]
 })
 
