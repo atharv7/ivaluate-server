@@ -6,6 +6,7 @@ import * as Koa from 'koa'
 import {Server} from 'http'
 import UserController from './users/controller'
 import LoginController from './logins/controller'
+import BatchController from './batches/controller'
 import { verify,secret } from './jwt'
 
 
@@ -17,7 +18,8 @@ useKoaServer(app, {
   cors: true,
   controllers: [
       UserController,
-      LoginController
+      LoginController,
+      BatchController
   ],
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
@@ -53,6 +55,6 @@ useKoaServer(app, {
 setupDb()
   .then(_ => {
     server.listen(port)
-    console.log(`Listening on port ${port}`)
+    console.log(`iValuate Server Listening Port: ${port}`)
   })
   .catch(err => console.error('error: ' + err))
