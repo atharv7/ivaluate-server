@@ -1,12 +1,25 @@
-// src/index.ts
 import 'reflect-metadata'
-import {createKoaServer} from "routing-controllers"
-import Controller from "./controller"
+import { Action, BadRequestError, useKoaServer } from 'routing-controllers'
+import setupDb from './db'
+import * as Koa from 'koa'
+import {Server} from 'http'
 
+
+const app = new Koa()
+const server = new Server(app.callback())
 const port = process.env.PORT || 4000
 
-const app = createKoaServer({
-   controllers: [Controller]
+useKoaServer(app, {
+  cors: true,
+  controllers: [
+  ]
 })
 
-app.listen(port, () => console.log(`Listening on port ${port}`))
+
+
+setupDb()
+  .then(_ => {
+    server.listen(port)
+    console.log(`Listening on port ${port}`)
+  })
+  .catch(err => console.error('error: ' + err))
