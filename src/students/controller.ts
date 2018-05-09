@@ -48,8 +48,8 @@ export default class StudentController {
       entity.fullName=fullName
       entity.photo=photo
       entity.batch=batch
-      const student = await entity.save()
-      return student
+      return await entity.save()
+      
       } else {
         throw new NotFoundError
       }
