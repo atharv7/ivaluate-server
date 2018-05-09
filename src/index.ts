@@ -9,6 +9,7 @@ import LoginController from './logins/controller'
 import BatchController from './batches/controller'
 import { verify,secret } from './jwt'
 import StudentController from './students/controller';
+import GradesController from './grades/controller';
 
 
 const app = new Koa()
@@ -21,7 +22,8 @@ useKoaServer(app, {
       UserController,
       LoginController,
       BatchController,
-      StudentController
+      StudentController,
+      GradesController
   ],
   authorizationChecker: (action: Action) => {
     const header: string = action.request.headers.authorization
