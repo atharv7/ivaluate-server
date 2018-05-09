@@ -1,4 +1,4 @@
-import { JsonController, Post, Param,Delete, Get,Put, Body, Authorized,HttpCode, NotFoundError } from 'routing-controllers'
+import { JsonController, Post, Param,Delete, Get,Put, Body, Authorized,HttpCode, NotFoundError, BadRequestError } from 'routing-controllers'
 import Student from './entity';
 
 
@@ -11,6 +11,7 @@ export default class StudentController {
   async createStudent(
     @Body() { fullName, photo, batch }: Student
   ) {
+    if(fullName==='' || photo==='') throw new BadRequestError()
     const entity = new Student
     entity.fullName=fullName
     entity.photo=photo
@@ -43,6 +44,7 @@ export default class StudentController {
   async editStudent(@Param('id') id: number,
     @Body() { fullName, photo, batch }: Student
   ) {
+    if(fullName==='' || photo==='') throw new BadRequestError()
     const entity = await Student.findOne(id)
     if(entity) {
     entity.fullName=fullName

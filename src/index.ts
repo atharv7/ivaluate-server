@@ -7,7 +7,7 @@ import {Server} from 'http'
 import UserController from './users/controller'
 import LoginController from './logins/controller'
 import BatchController from './batches/controller'
-import { verify,secret } from './jwt'
+import { verify } from './jwt'
 import StudentController from './students/controller';
 import GradesController from './grades/controller';
 

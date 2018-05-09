@@ -7,10 +7,10 @@ export default class Student extends BaseEntity {
   @PrimaryGeneratedColumn()
   id?: number
 
-  @Column('text')
+  @Column('text',{nullable:false})
   fullName: string
 
-  @Column('text')
+  @Column('text',{nullable:false})
   photo: string
 
   @Column('integer')

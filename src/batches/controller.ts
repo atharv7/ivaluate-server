@@ -1,14 +1,13 @@
 import { 
-    JsonController, Authorized, CurrentUser, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get, 
+    JsonController, Authorized, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get, 
     Body, Patch 
   } from 'routing-controllers'
-import User from '../users/entity'
-import { Batch, Student} from './entity'
+import { Batch} from './entity'
 
 @JsonController()
 export default class BatchController {
 
-    // @Authorized()
+    @Authorized()
     @Get('/batches/:id([0-9]+)')
     getBatch(
       @Param('id') id: number
@@ -28,7 +27,7 @@ export default class BatchController {
     async createBatch(
       @Body() { starts, ends, batch } : Batch
     ) {
-
+      
       const entity = new Batch
       entity.starts=starts
       entity.ends=ends

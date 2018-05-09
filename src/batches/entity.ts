@@ -19,19 +19,3 @@ export class Batch extends BaseEntity {
   ends: Date
 
 }
-
-@Entity()
-export class Student extends BaseEntity {
-
-  @PrimaryGeneratedColumn()
-  id?: number
-
-  @Column('text', {nullable: false})
-  name: string
-
-  @Column('text', {nullable:true})
-  photo: string
-
-  @Column('integer', {nullable: false})
-  batch: number
-}
