@@ -44,11 +44,10 @@ export default class StudentController {
   async editStudent(@Param('id') id: number,
     @Body() { fullName, photo, batch }: Student
   ) {
-    if(fullName==='' || photo==='') throw new BadRequestError()
     const entity = await Student.findOne(id)
     if(entity) {
-    entity.fullName=fullName
-    entity.photo=photo
+    entity.fullName=(fullName)?fullName:entity.fullName
+    entity.photo=(photo)?photo:entity.photo
     entity.batch=batch
     return await entity.save()
     
