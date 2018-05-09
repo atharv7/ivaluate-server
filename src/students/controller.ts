@@ -37,23 +37,33 @@ export default class StudentController {
       return Student.find()
     }
 
-  // @Authorized()
-    @Put('/students/:id')
-    @HttpCode(200)
-    async editStudent(@Param('id') id: number,
-      @Body() { fullName, photo, batch }: Student
-    ) {
-      const entity = await Student.findOne(id)
-      if(entity) {
-      entity.fullName=fullName
-      entity.photo=photo
-      entity.batch=batch
-      return await entity.save()
-      
-      } else {
-        throw new NotFoundError
-      }
-      
+  @Authorized()
+  @Put('/students/:id')
+  @HttpCode(200)
+  async editStudent(@Param('id') id: number,
+    @Body() { fullName, photo, batch }: Student
+  ) {
+    const entity = await Student.findOne(id)
+    if(entity) {
+    entity.fullName=fullName
+    entity.photo=photo
+    entity.batch=batch
+    return await entity.save()
+    
+    } else {
+      throw new NotFoundError
     }
+    
+  }
+
+  @Authorized()
+  @Delete('/students/:id([0-9]+)')
+  async removeStudent(
+    @Param('id') id: number
+  ) {
+    const student = await Student.findOne(id)
+    if(student)
+    return await student.remove()
+  }
 
 }
