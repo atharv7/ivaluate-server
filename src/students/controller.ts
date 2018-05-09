@@ -1,4 +1,4 @@
-import { JsonController, Post, Param, Get,Put, Body, Authorized,HttpCode, NotFoundError } from 'routing-controllers'
+import { JsonController, Post, Param,Delete, Get,Put, Body, Authorized,HttpCode, NotFoundError } from 'routing-controllers'
 import Student from './entity';
 
 
@@ -23,14 +23,14 @@ export default class StudentController {
 
   
 
-  // @Authorized()
+  @Authorized()
     @Get('/students/:id([0-9]+)')
     
     getStudents(@Param('id') id: number) {
       return Student.find({batch: id})
     }
 
-    // @Authorized()
+    @Authorized()
     @Get('/students')
     
     getAllStudents() {
@@ -38,10 +38,10 @@ export default class StudentController {
     }
 
   // @Authorized()
-    @Put('/students')
+    @Put('/students/:id')
     @HttpCode(200)
-    async editStudent(
-      @Body() { id,fullName, photo, batch }: Student
+    async editStudent(@Param('id') id: number,
+      @Body() { fullName, photo, batch }: Student
     ) {
       const entity = await Student.findOne(id)
       if(entity) {
