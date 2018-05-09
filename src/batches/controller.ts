@@ -21,4 +21,21 @@ export default class BatchController {
     getBatches() {
       return Batch.find()
     }
+
+    @Authorized()
+    @Post('/batches')
+    @HttpCode(201)
+    async createBatch(
+      @Body() { starts, ends, batch } : Batch
+    ) {
+      // const entity = await Batch.create().save()
+      const entity = new Batch
+      entity.starts=starts
+      entity.ends=ends
+      entity.batch=batch
+      await entity.save()
+      const createdbatch = await Batch.findOne(entity.id)
+
+      return createdbatch
+    }
 }
