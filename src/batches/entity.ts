@@ -12,11 +12,11 @@ export class Batch extends BaseEntity {
   @Column('integer', {nullable: false})
   batch: number
 
-  @Column('text', {nullable: false})
-  starts: string
+  @Column('date', {nullable: false})
+  starts: Date
 
-  @Column('text', {nullable: false})
-  ends: string
+  @Column('date', {nullable: false})
+  ends: Date
 
 }
 
