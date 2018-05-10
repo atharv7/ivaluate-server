@@ -13,7 +13,7 @@ export default class StudentController {
     @Body() { fullName, photo, batch }: Student
   ) {
     if(fullName==='') throw new BadRequestError()
-    if(photo==='') photo = 'http://www.stickpng.com/assets/thumbs/585e4bd7cb11b227491c3397.png' //default pic
+    if(photo==='') photo = 'https://cdn4.iconfinder.com/data/icons/little-boy/1067/Little_Boy_White.png' //default pic
     const entity = new Student
     entity.fullName=fullName
     entity.photo=photo
