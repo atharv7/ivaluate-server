@@ -1,5 +1,6 @@
 import { JsonController, Post, Param,Delete, Get,Put, Body, Authorized,HttpCode, NotFoundError, BadRequestError } from 'routing-controllers'
 import Student from './entity';
+import { notDeepEqual } from 'assert';
 
 
 @JsonController()
@@ -26,9 +27,18 @@ export default class StudentController {
 
   @Authorized()
     @Get('/students/:id([0-9]+)')
-    
-    getStudents(@Param('id') id: number) {
-      return Student.find({batch: id})
+    @HttpCode(200)
+    async getStudents(@Param('id') id: number) {
+      return await Student.find({batch: id})
+    }
+
+    // @Authorized()
+    @Get('/getbatch/:id([0-9]+)')
+    @HttpCode(200)
+    async getBatch(@Param('id') id: number) {
+      const student = await Student.findOne(id)
+      if(!student) throw new NotFoundError
+      return {student}
     }
 
     @Authorized()
