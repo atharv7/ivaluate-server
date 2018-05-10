@@ -1,7 +1,4 @@
-import { 
-    JsonController, Authorized, Post, Param, BadRequestError, HttpCode, NotFoundError, ForbiddenError, Get, 
-    Body, Patch 
-  } from 'routing-controllers'
+import {JsonController, Authorized, Post, Param, HttpCode,  Get, Body} from 'routing-controllers'
 import { Batch} from './entity'
 import Student from '../students/entity';
 
@@ -24,11 +21,12 @@ export default class BatchController {
 //ALGORITHM BACKEND STARTS
     // @Authorized() SAME ISSUES (jwt malformed)
     @Post('/randomstudent')
+    @HttpCode(201)
     async getRandomStudent(
       @Body() { batch, color } 
     ) {
       const studentsInBatch = await Student.find({where: {batch: batch}})
-      if (!studentsInBatch) throw new NotFoundError
+      if (!studentsInBatch) return 'No Students Yet!'
       const coloredStudents = studentsInBatch.filter(student=>student.lastGrade===color)
       if(coloredStudents.length) return coloredStudents[Math.floor(Math.random()*coloredStudents.length)]
       return studentsInBatch[Math.floor(Math.random()*studentsInBatch.length)]

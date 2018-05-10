@@ -1,7 +1,4 @@
-import {
-Authorized, Get,BadRequestError, Body,  HttpCode, JsonController, Param,
-Post
-} from "routing-controllers";
+import {Authorized, Get, Body,  HttpCode, JsonController, Param, Post } from "routing-controllers";
 import Grades from "./entity";
 import Student from "../students/entity";
 
@@ -34,7 +31,7 @@ async giveGrade(
 }  
 }
 
-// @Authorized()
+@Authorized()
 @Get('/students/:id([0-9]+)/lastgrade')
 @HttpCode(200)
 async getGrade(

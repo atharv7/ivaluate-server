@@ -1,6 +1,5 @@
 import { JsonController, Post, Param,Delete, Get,Put, Body, Authorized,HttpCode, NotFoundError, BadRequestError } from 'routing-controllers'
 import Student from './entity';
-import { notDeepEqual } from 'assert';
 
 
 @JsonController()
