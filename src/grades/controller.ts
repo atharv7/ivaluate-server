@@ -1,5 +1,5 @@
 import {
-Authorized, BadRequestError, Body,  HttpCode, JsonController, Param,
+Authorized, Get,BadRequestError, Body,  HttpCode, JsonController, Param,
 Post
 } from "routing-controllers";
 import Grades from "./entity";
@@ -29,4 +29,20 @@ async giveGrade(
     return Grades.findOne({where: {id: grade.id}})
 }  
 }
+
+// @Authorized()
+@Get('/students/:id([0-9]+)/lastgrade')
+@HttpCode(200)
+async getGrade(
+    @Param('id') id: number
+) {
+    const grades = await Grades.find({student: id})
+    if(grades){
+    const lastgrade = grades.sort((a,b)=>Number(new Date(b.date))-Number(new Date(a.date)))[0]
+    return lastgrade
+    } else {
+        return 'Not graded yet!'
+    }
+    
+}  
 }
