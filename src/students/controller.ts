@@ -12,7 +12,8 @@ export default class StudentController {
   async createStudent(
     @Body() { fullName, photo, batch }: Student
   ) {
-    if(fullName==='' || photo==='') throw new BadRequestError()
+    if(fullName==='') throw new BadRequestError()
+    if(photo==='') photo = 'http://www.stickpng.com/assets/thumbs/585e4bd7cb11b227491c3397.png' //default pic
     const entity = new Student
     entity.fullName=fullName
     entity.photo=photo
@@ -32,7 +33,8 @@ export default class StudentController {
       return await Student.find({batch: id})
     }
 
-    // @Authorized()
+    // Getting JWT malformed error because of the below authorized!! :(
+    // @Authorized()    
     @Get('/getbatch/:id([0-9]+)')
     @HttpCode(200)
     async getBatch(@Param('id') id: number) {

@@ -3,6 +3,7 @@ import {
     Body, Patch 
   } from 'routing-controllers'
 import { Batch} from './entity'
+import Student from '../students/entity';
 
 @JsonController()
 export default class BatchController {
@@ -20,6 +21,17 @@ export default class BatchController {
     getBatches() {
       return Batch.find()
     }
+//ALGORITHM BACKEND STARTS
+    // @Authorized() SAME ISSUES (jwt malformed)
+    @Post('/randomstudent')
+    async getRandomStudent(
+      @Body() { batch, color } 
+    ) {
+      const studentsInBatch = await Student.find({where: {batch: batch}})
+      const coloredStudents = studentsInBatch.filter(student=>student.lastGrade===color)
+      return coloredStudents[Math.floor(Math.random()*coloredStudents.length)]
+    }
+//ALGORITHM BACKEND ENDS
 
     @Authorized()
     @Post('/batches')
