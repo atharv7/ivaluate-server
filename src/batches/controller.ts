@@ -28,8 +28,12 @@ export default class BatchController {
       @Body() { batch, color } 
     ) {
       const studentsInBatch = await Student.find({where: {batch: batch}})
+      if (!studentsInBatch) throw new NotFoundError
       const coloredStudents = studentsInBatch.filter(student=>student.lastGrade===color)
-      return coloredStudents[Math.floor(Math.random()*coloredStudents.length)]
+      if(coloredStudents.length) return coloredStudents[Math.floor(Math.random()*coloredStudents.length)]
+      return studentsInBatch[Math.floor(Math.random()*studentsInBatch.length)]
+    
+
     }
 //ALGORITHM BACKEND ENDS
 
