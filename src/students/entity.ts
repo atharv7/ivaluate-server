@@ -16,4 +16,7 @@ export default class Student extends BaseEntity {
   @Column('integer')
   batch: number
 
+  @Column('text',{default:'Not Graded Yet!'})
+  lastGrade: string
+
 }

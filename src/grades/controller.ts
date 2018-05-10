@@ -15,7 +15,7 @@ async giveGrade(
     @Body() body: Grades,
     @Param('id') id: number
 ) {
-    const student = await Student.findOne({id: id})
+    const student = await Student.findOne(id)
     const teacher = body.teacher
     const color = body.color
     const newDate = new Date()
@@ -25,6 +25,10 @@ async giveGrade(
     const grade = await Grades.create({
         color,remarks,date: newDate,student: student.id,teacher
     }).save()
+    student.lastGrade = color
+    await student.save()
+
+
 
     return Grades.findOne({where: {id: grade.id}})
 }  
